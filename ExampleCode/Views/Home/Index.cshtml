@@ -1,0 +1,44 @@
+﻿@model ExampleCode.Models.ExampleModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel">
+
+                <div class="panel-body">
+                    <ul id="message-list">
+                        @for (var i = 0; i < Model.Messages.Count; i++)
+                        {
+                            <li>
+                                @Html.HiddenFor(x => Model.Messages[i].DatabaseId)
+                                @Html.HiddenFor(x => Model.Messages[i].Message)
+                                @Html.HiddenFor(x => Model.Messages[i].Date)
+                                @Html.DisplayFor(x => Model.Messages[i].Message) - @Html.DisplayFor(x => Model.Messages[i].Date)
+                            </li>
+                        }
+                    </ul>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <button type="button" data-target="#add-modal" data-toggle="modal">Add Modal</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <button type="submit">Submit Form</button>
+        </div>
+    </div>
+}
+
+@Html.Partial("_MessageModal")
